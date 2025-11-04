@@ -113,6 +113,17 @@ class RegisterContent extends StatelessWidget {
                         },
                       ),
                       DefaultTextFieldOutlined(
+                        text: 'Dui', 
+                        icon: Icons.perm_identity,
+                        margin: EdgeInsets.only(left: 50, right: 50, top: 15),
+                        onChanged: (text) {
+                          context.read<RegisterBloc>().add(Duichange(dui: Blocformitem(value: text)));
+                        },
+                        validator: (value) {
+                          return state.dui.error;
+                        },
+                      ),
+                      DefaultTextFieldOutlined(
                         text: 'Password', 
                         icon: Icons.lock_outlined,
                         margin: EdgeInsets.only(left: 50, right: 50, top: 15),

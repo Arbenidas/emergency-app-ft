@@ -8,6 +8,6 @@ import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/Registe
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<BlocProvider> blocProviders = [
-  BlocProvider<LoginBloc>(create: (context)=> LoginBloc(locator<AuthUseCase>())..add(LoginInitEvent() )),
-  BlocProvider<RegisterBloc>(create: (context)=> RegisterBloc()..add(RegisterInitEvent() )),
+  BlocProvider<LoginBloc>(create: (context)=> LoginBloc(locator<AuthUseCase >())..add(LoginInitEvent() )),
+  BlocProvider<RegisterBloc>(create: (context)=> RegisterBloc(locator<AuthUseCase >())..add(RegisterInitEvent() )),
 ];

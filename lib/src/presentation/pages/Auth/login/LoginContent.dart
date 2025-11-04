@@ -182,9 +182,10 @@ class LoginContent extends StatelessWidget {
   Widget _textRegisterRotated(BuildContext context){
 
     return GestureDetector(
-      onTap: () => {
-        Navigator.pop(context)
-      },
+     // En tu archivo LoginContent.dart
+onTap: () {
+  Navigator.pushNamed(context, 'register'); // <--- ESTA ES LA SOLUCIÓN
+},
       child: RotatedBox(
                   quarterTurns: 1,
                   child: Text(

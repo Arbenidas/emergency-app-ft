@@ -1,23 +1,27 @@
 import 'package:app_emergencia/src/domain/models/Role.dart';
 class User {
-    int id;
+    int? id;
     String name;
     String lastname;
     String email;
     String phone;
+    String password;
+    String dui;
     dynamic image;
-    List<Role> roles;
+    List<Role>? roles;
     dynamic notificationToken;
 
     User({
-        required this.id,
+         this.id,
         required this.name,
         required this.lastname,
         required this.email,
         required this.phone,
-        required this.image,
-        required this.roles,
-        required this.notificationToken,
+        required this.password,
+        required this.dui,
+         this.image,
+         this.roles,
+         this.notificationToken,
     });
 
     factory User.fromJson(Map<String, dynamic> json) => User(
@@ -25,7 +29,9 @@ class User {
         name: json["name"],
         lastname: json["lastname"],
         email: json["email"],
+        password: json["password"],
         phone: json["phone"],
+        dui: json["dui"],
         image: json["image"],
         roles: json["roles"] !=null
         ?List<Role>.from(json["roles"].map((x) => Role.fromJson(x)))
@@ -39,9 +45,10 @@ class User {
         "lastname": lastname,
         "email": email,
         "phone": phone,
+        "dui":dui,
+        "password": password,
         "image": image,
-        "roles": roles != null
-        ? List<dynamic>.from(roles.map((x) => x.toJson()))
+        "roles": roles != null ? List<dynamic>.from(roles!.map((x) => x.toJson()))
         :[],
         "notification_token": notificationToken,
     };

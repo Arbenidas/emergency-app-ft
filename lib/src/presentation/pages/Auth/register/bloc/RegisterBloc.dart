@@ -1,3 +1,5 @@
+import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
+import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterState.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
@@ -6,9 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
+
+  AuthUseCase authUseCase;
   final formKey = GlobalKey<FormState>();
 
-  RegisterBloc() : super(RegisterState()) {
+  RegisterBloc(this.authUseCase) : super(RegisterState()) {
     on<RegisterInitEvent>((event, emit) {
       emit(state.copyWith( formKey: formKey ));
     });
@@ -61,6 +65,21 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
     });
 
+    on<Duichange>((event, emit) {
+      emit(
+        state.copyWith(
+          phone: Blocformitem(
+            value: event.dui.value,
+            error: event.dui.value!.isEmpty ? 'Ingresa el dui' : event.dui.value!.length < 9 
+                ? 'Ingresa un formato valido de dui' 
+                : null
+          ),
+          formKey: formKey
+        )
+      );
+    });
+
+
     on<PasswordChange>((event, emit) {
       emit(
         state.copyWith(
@@ -95,13 +114,27 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
     });
 
-    on<FormSubmit>((event, emit) {
+    on<FormSubmit>((event, emit) async {
       print('Name: ${state.name.value}');
       print('LastName: ${state.lastname.value}');
       print('email: ${state.email.value}');
       print('phone: ${state.phone.value}');
       print('password: ${state.password.value}');
       print('confirmPassword: ${state.confirmpassword}');
+      print('dui ${state.dui}');
+      emit(
+        state.copyWith(
+          response: Loading(),
+          formKey: formKey
+        )
+      );
+      Resource response = await  authUseCase.register.run(state.toUser());
+      emit(
+        state.copyWith(
+          response: response,
+          formKey: formKey
+        )
+      );
     });
 
     on<FormReset>((event, emit) {

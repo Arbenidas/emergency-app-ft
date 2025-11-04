@@ -3,6 +3,7 @@ import 'package:app_emergencia/src/data/dataSource/remote/service/AuthService.da
 import 'package:app_emergencia/src/domain/repository/AuthRepository.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/LoginUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/auth/RegisterUseCase.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -15,5 +16,8 @@ abstract class Appmodule {
 
   @injectable
   AuthUseCase get authUseCase =>
-      AuthUseCase(login: LoginUseCase(authRepository));
+      AuthUseCase(
+        login: LoginUseCase(authRepository),
+        register: RegisterUseCase(authRepository)
+        );
 }

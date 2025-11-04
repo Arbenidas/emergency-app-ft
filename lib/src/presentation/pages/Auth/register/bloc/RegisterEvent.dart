@@ -28,6 +28,12 @@ class PhoneChange extends RegisterInitEvent{
     required this.phone
   });
 }
+class Duichange extends RegisterInitEvent{
+  final Blocformitem dui;
+  Duichange({
+    required this.dui
+  });
+}
 class PasswordChange extends RegisterInitEvent{
   final Blocformitem password;
   PasswordChange({
