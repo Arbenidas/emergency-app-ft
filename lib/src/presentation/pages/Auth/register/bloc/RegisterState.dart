@@ -3,7 +3,6 @@ import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 
 class RegisterState extends Equatable{
 

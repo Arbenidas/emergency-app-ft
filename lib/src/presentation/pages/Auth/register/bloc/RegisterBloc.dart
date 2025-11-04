@@ -65,20 +65,28 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
     });
 
-    on<Duichange>((event, emit) {
+
+    on<DuiChange>((event, emit) {
+      // 1. Limpiamos el valor ANTES de validarlo
+      final cleanedDui = event.dui.value!
+                          .replaceAll('-', '') // Quita el guion
+                          .trim();              // Quita espacios
+
       emit(
         state.copyWith(
-          phone: Blocformitem(
-            value: event.dui.value,
-            error: event.dui.value!.isEmpty ? 'Ingresa el dui' : event.dui.value!.length < 9 
-                ? 'Ingresa un formato valido de dui' 
+          dui: Blocformitem( // <--- ¡CORREGIDO!
+            value: event.dui.value, // Dejamos el valor original (con guion) en el campo
+            error: cleanedDui.isEmpty 
+              ? 'Ingresa el dui' 
+              : cleanedDui.length != 9  // <--- ¡LÓGICA CORREGIDA!
+                ? 'El DUI debe tener 9 digitos' // <--- Mensaje de tu imagen
                 : null
           ),
           formKey: formKey
         )
       );
     });
-
+// ...
 
     on<PasswordChange>((event, emit) {
       emit(

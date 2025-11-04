@@ -117,7 +117,7 @@ class RegisterContent extends StatelessWidget {
                         icon: Icons.perm_identity,
                         margin: EdgeInsets.only(left: 50, right: 50, top: 15),
                         onChanged: (text) {
-                          context.read<RegisterBloc>().add(Duichange(dui: Blocformitem(value: text)));
+                          context.read<RegisterBloc>().add(DuiChange(dui: Blocformitem(value: text)));
                         },
                         validator: (value) {
                           return state.dui.error;
