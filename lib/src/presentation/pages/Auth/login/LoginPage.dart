@@ -5,6 +5,7 @@ import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginState
 import 'package:app_emergencia/src/presentation/pages/Auth/login/loginContent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
 class Loginpage extends StatefulWidget {
@@ -23,9 +24,8 @@ class _LoginpageState extends State<Loginpage> {
           listener: (context, state) {
                 final response = state.response;
                 if (response is ErrorData) {
-                  print('Error data: ${response.message}');
+                  Fluttertoast.showToast(msg: response.message);
                 }else if(response is Success){
-                  print('Succes Data: ${response.data}');
                 }
           },
           child: BlocBuilder<LoginBloc, LoginState>(
