@@ -1,3 +1,4 @@
+import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
 
 abstract class LoginEvent {}
@@ -15,11 +16,18 @@ class EmailChanged extends LoginEvent{
   });
 }
 
-class passwordChange extends LoginEvent{
+class PasswordChange extends LoginEvent{
   final Blocformitem password;
-  passwordChange({
+  PasswordChange({
     required this.password,
   });
+}
+
+class saveUserSession extends LoginEvent{
+  final AuthResponse authResponse;
+  saveUserSession(
+    {required this.authResponse}
+  );
 }
 
 class FormSubmit extends LoginEvent{

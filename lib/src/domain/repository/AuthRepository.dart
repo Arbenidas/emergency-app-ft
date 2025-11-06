@@ -6,6 +6,8 @@ abstract class Authrepository {
 
   Future<Resource<AuthResponse>> login(String email,String password);
     Future<Resource<AuthResponse>> register(User user);
+    Future<void> saveUserSession(AuthResponse authResponse);
+    Future<AuthResponse?> getUserSession();
 
 
 }

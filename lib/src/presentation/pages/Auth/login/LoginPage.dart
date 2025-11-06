@@ -1,3 +1,5 @@
+import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
+import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
@@ -25,7 +27,11 @@ class _LoginpageState extends State<Loginpage> {
                 final response = state.response;
                 if (response is ErrorData) {
                   Fluttertoast.showToast(msg: response.message);
+
                 }else if(response is Success){
+                  final authResponse = response.data as AuthResponse;
+                  context.read<LoginBloc>().add(saveUserSession( authResponse: authResponse) );
+                  Navigator.pushNamedAndRemoveUntil(context, 'client/home', (route)=>false);
                 }
           },
           child: BlocBuilder<LoginBloc, LoginState>(

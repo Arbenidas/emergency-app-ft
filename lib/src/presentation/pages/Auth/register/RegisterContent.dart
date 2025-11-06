@@ -1,4 +1,4 @@
-import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart' hide FormSubmit;
+import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart' hide FormSubmit, PasswordChange;
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterState.dart';

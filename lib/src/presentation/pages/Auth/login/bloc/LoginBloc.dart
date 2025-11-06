@@ -1,6 +1,8 @@
 import 'package:app_emergencia/src/data/dataSource/remote/service/AuthService.dart';
+import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/LoginUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginState.dart';
@@ -17,7 +19,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   
   LoginBloc(this.authUseCase): super(LoginState()) {
 
-    on<LoginInitEvent>((event, emit) {
+    on<LoginInitEvent>((event, emit) async {
+      AuthResponse? authResponse = await authUseCase.getUserSession.run();
+      print('Auth response session: ${authResponse?.toJson()}');
       emit(state.copyWith(formKey: formKey));
     });
 
@@ -34,7 +38,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
     });
 
-    on<passwordChange>((event, emit) {
+    on<PasswordChange>((event, emit) {
       emit(
         state.copyWith(
           password: Blocformitem(
@@ -50,6 +54,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         )
       );
     });
+
+    on<saveUserSession>((event,emit) async{
+      await authUseCase.saveUserSession.run(event.authResponse);
+    }
+    );
+
 
     on<FormSubmit>((event, emit) async {
       print('Email: ${ state.email.value }');

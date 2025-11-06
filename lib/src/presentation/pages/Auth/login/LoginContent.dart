@@ -98,7 +98,7 @@ class LoginContent extends StatelessWidget {
                   text: "Contraseña", 
                   icon: Icons.lock_outline,
                   onChange: (String text) { 
-                   return context.read<LoginBloc>().add(passwordChange(password: Blocformitem(value: text)));
+                   return context.read<LoginBloc>().add(PasswordChange(password: Blocformitem(value: text)));
 
                    },validator: (value) {
                      return state.password.error;

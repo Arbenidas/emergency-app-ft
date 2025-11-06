@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_emergencia/src/data/api/ApiConfig.dart';
+import 'package:app_emergencia/src/data/dataSource/local/SharePref.dart';
 import 'package:app_emergencia/src/data/dataSource/remote/service/AuthService.dart';
 import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/models/user.dart';
@@ -12,8 +13,9 @@ import 'package:http/http.dart' as http;
 class Authrepositoryimpl implements Authrepository {
 
   Authservice authservice;
+  Sharepref sharedPreferences;
 
-  Authrepositoryimpl(this.authservice);
+  Authrepositoryimpl(this.authservice, this.sharedPreferences);
 
   @override
   Future<Resource<AuthResponse>> login(String email, String password) {
@@ -50,6 +52,21 @@ class Authrepositoryimpl implements Authrepository {
       print('error: $e');
       return ErrorData(e.toString());
     }
+  }
+  
+  @override
+  Future<AuthResponse?> getUserSession() async {
+    final data = await sharedPreferences.read('user');
+    if(data != null){
+      AuthResponse authResponse = AuthResponse.fromJson(data);
+      return authResponse;
+    }
+    return null;
+  }
+  
+  @override
+  Future<void> saveUserSession(AuthResponse authResponse) async {
+    sharedPreferences.save('user', authResponse.toJson());
   }
 
   }
