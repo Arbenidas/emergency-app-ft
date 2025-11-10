@@ -12,9 +12,12 @@ class ProfileInfoPage extends StatefulWidget {
 
   @override
   State<ProfileInfoPage> createState() => _ProfileInfoPageState();
+  
 }
 
+
 class _ProfileInfoPageState extends State<ProfileInfoPage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
