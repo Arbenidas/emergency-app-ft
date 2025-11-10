@@ -1,4 +1,3 @@
-import 'package:app_emergencia/src/data/api/repository/AuthRepositoryImpl.dart';
 import 'package:app_emergencia/src/domain/repository/AuthRepository.dart';
 
 class LoginUseCase {

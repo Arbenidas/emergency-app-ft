@@ -58,7 +58,8 @@ class ProfileInfoContent extends StatelessWidget {
               child: Text(
                 // Ahora 'user' es accesible porque _cardUser es un método de la clase
                 // Usamos '??' para poner un valor por defecto si es nulo
-                user?.name ?? 'Nombre de Usuario', 
+                // user?.name ?? 'Nombre de Usuario',
+                '${user?.name} ${user?.lastname}', 
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
@@ -67,6 +68,15 @@ class ProfileInfoContent extends StatelessWidget {
               child: Text(
                 // Corregido: usa el email del usuario
                 user?.email ?? 'email@ejemplo.com', 
+                style:
+                    TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text(
+                // Corregido: usa el email del usuario
+                user?.phone ?? '0000-0000', 
                 style:
                     TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
               ),
