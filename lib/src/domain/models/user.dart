@@ -24,20 +24,20 @@ class User {
          this.notificationToken,
     });
 
+    //...
     factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        name: json["name"],
-        lastname: json["lastname"],
-        email: json["email"],
-        password: json["password"],
-        phone: json["phone"],
-        dui: json["dui"],
+        name: json["name"] ?? '', // <--- AÑADIDO
+        lastname: json["lastname"] ?? '', // <--- AÑADIDO
+        email: json["email"] ?? '', // <--- AÑADIDO
+        phone: json["phone"] ?? '', // <--- AÑADIDO
         image: json["image"],
-        roles: json["roles"] !=null
-        ?List<Role>.from(json["roles"].map((x) => Role.fromJson(x)))
-        : [],
+        password: json["password"] ?? '', // <--- AÑADIDO
         notificationToken: json["notification_token"],
+        dui: json["dui"] ?? '', // <--- AÑADIDO
+        roles: json["roles"] == null ? [] : List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
     );
+//...
 
     Map<String, dynamic> toJson() => {
         "id": id,

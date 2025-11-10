@@ -1,3 +1,4 @@
+import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
 
 abstract class RegisterEvent {}
@@ -45,6 +46,12 @@ class ConfirmPasswordChange extends RegisterInitEvent{
   final Blocformitem confirmpassword;
   ConfirmPasswordChange({
     required this.confirmpassword
+  });
+}
+class SaveUserSession extends RegisterInitEvent{
+  final AuthResponse authResponse;
+  SaveUserSession({
+    required this.authResponse
   });
 }
 

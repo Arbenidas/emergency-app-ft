@@ -23,6 +23,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       AuthResponse? authResponse = await authUseCase.getUserSession.run();
       print('Auth response session: ${authResponse?.toJson()}');
       emit(state.copyWith(formKey: formKey));
+      if(authResponse !=null){
+        emit(
+          state.copyWith(
+            response: Success(authResponse),
+            formKey: formKey
+          )
+        );
+      }
     });
 
     on<EmailChanged>((event, emit) {

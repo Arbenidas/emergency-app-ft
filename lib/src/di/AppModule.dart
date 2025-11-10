@@ -4,6 +4,7 @@ import 'package:app_emergencia/src/data/dataSource/remote/service/AuthService.da
 import 'package:app_emergencia/src/domain/repository/AuthRepository.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/GetUserSessionUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/auth/LogOutUseCases.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/RegisterUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
@@ -28,5 +29,6 @@ abstract class Appmodule {
         register: RegisterUseCase(authRepository),
         saveUserSession: SaveUserSessionUseCase(authRepository),
         getUserSession: GetUserSessionUseCase(authRepository),
+        logOutUseCases: LogOutUseCases(authrepository: authRepository)
         );
 }

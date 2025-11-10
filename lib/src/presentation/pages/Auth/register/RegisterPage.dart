@@ -1,4 +1,6 @@
+import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
+import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/RegisterContent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterEvent.dart';
@@ -26,6 +28,9 @@ class _RegisterPageState extends State<RegisterPage> {
             Fluttertoast.showToast(msg: response.message,toastLength: Toast.LENGTH_SHORT);
           }
           else if(response is Success){
+            final authResponse = response.data as AuthResponse;
+             context.read<RegisterBloc>().add(SaveUserSession( authResponse: authResponse) );
+                  Navigator.pushNamedAndRemoveUntil(context, 'client/home', (route)=>false);
             // context.read<RegisterBloc>().add(FormReset());
           }
         },

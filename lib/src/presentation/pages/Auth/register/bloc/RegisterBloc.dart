@@ -1,5 +1,7 @@
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
+import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart' hide PasswordChange, FormSubmit;
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterState.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
@@ -17,6 +19,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(state.copyWith( formKey: formKey ));
     });
 
+  on<SaveUserSession>((event, emit) async {
+  await authUseCase.saveUserSession.run(event.authResponse);
+});
     on<NameChanged>((event, emit) {
       emit(
         state.copyWith(
