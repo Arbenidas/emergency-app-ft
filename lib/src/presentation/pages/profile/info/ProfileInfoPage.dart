@@ -1,4 +1,3 @@
-import 'package:app_emergencia/src/domain/models/user.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/info/ProfileInfoContent.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/info/bloc/ProfileInfoBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/info/bloc/ProfileInfoState.dart';
@@ -6,24 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileInfoPage extends StatefulWidget {
-
-  
-  const ProfileInfoPage(User? user, {super.key});
+  const ProfileInfoPage({super.key});
 
   @override
   State<ProfileInfoPage> createState() => _ProfileInfoPageState();
-  
 }
 
-
 class _ProfileInfoPageState extends State<ProfileInfoPage> {
-  
+  List<Widget> pageList = <Widget>[ProfileInfoPage()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ProfileInfoBloc, ProfileInfoState>(
         builder: (context, state) {
-          return ProfileInfoPage(state.user);
+          return ProfileInfoPage();
         },
       ),
     );

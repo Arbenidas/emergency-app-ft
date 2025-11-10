@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ProfileInfoContent extends StatelessWidget {
   final User? user;
 
-  ProfileInfoContent({this.user});
+  ProfileInfoContent(this.user);
 
   @override
   Widget build(BuildContext context) {
