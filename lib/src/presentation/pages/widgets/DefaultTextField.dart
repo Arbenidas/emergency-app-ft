@@ -5,25 +5,27 @@ class Defaulttextfield extends StatelessWidget {
   final String text;
   final Function(String text) onChange;
   final IconData icon;
-  final double? margin;
+  final EdgeInsetsGeometry margin;
   final String? Function(String?)? validator;
+  final Color backgroudColor;
 
   const Defaulttextfield({
   super.key,
   required this.text,
   required this.icon,
   required this.onChange,
-  this.margin = 2, 
-  this.validator
+  this.margin = const EdgeInsets.only(top: 50,left: 20,right: 20), 
+  this.validator,
+  this.backgroudColor =Colors.white
 
   });
 
   @override
   Widget build(BuildContext context) {
     return  Container(
-                margin: EdgeInsets.only(left: margin ?? 2.0, right: margin ?? 2.0),
+      margin: margin,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: backgroudColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15),

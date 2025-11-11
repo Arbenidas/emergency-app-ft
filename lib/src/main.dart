@@ -3,6 +3,7 @@ import 'package:app_emergencia/src/injection.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/home/ClientHomePage.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/LoginPage.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/RegisterPage.dart';
+import 'package:app_emergencia/src/presentation/pages/profile/update/ProfileUpdatePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (BuildContext context) => Loginpage(),
           'register': (BuildContext context) => RegisterPage(),
-          'client/home': (BuildContext context)=>ClientHomePage( )
+          'client/home': (BuildContext context)=>ClientHomePage( ),
+          'profile/update': (BuildContext context) => ProfileUpdatePage(),
         },
       ),
     );

@@ -15,8 +15,12 @@ class ProfileInfoContent extends StatelessWidget {
           children: [
             _HeaderProfile(context),
             Spacer(),
-            _actionProfile("editar Perfil", Icons.edit),
-            _actionProfile("Cerrar sesion", Icons.exit_to_app),
+            _actionProfile("editar Perfil", Icons.edit,(){
+              Navigator.pushNamed(context, 'profile/update',arguments: user);
+            }),
+            _actionProfile("Cerrar sesion", Icons.exit_to_app, (){
+               
+            }),
             SizedBox(height: 50),
           ],
         ),
@@ -88,26 +92,31 @@ class ProfileInfoContent extends StatelessWidget {
   }
 
   // MÉTODO MOVIDO DENTRO DE LA CLASE
-  Widget _actionProfile(String option, IconData icon) {
-    return ListTile(
-      title: Text(
-        option,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-      leading: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color.fromARGB(255, 12, 38, 145),
-              Color.fromARGB(255, 34, 156, 249),
-            ],
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+  Widget _actionProfile(String option, IconData icon, Function funcion) {
+    return GestureDetector(
+      onTap: (){
+        funcion();
+      },
+      child: ListTile(
+        title: Text(
+          option,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
-        child: Icon(icon, color: Colors.white),
+        leading: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color.fromARGB(255, 12, 38, 145),
+                Color.fromARGB(255, 34, 156, 249),
+              ],
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: Icon(icon, color: Colors.white),
+        ),
       ),
     );
   }
