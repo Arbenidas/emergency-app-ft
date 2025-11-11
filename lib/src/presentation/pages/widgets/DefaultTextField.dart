@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Defaulttextfield extends StatelessWidget {
+class DefaultTextfield extends StatelessWidget {
 
   final String text;
   final Function(String text) onChange;
@@ -8,15 +8,17 @@ class Defaulttextfield extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final String? Function(String?)? validator;
   final Color backgroudColor;
+  final String? initValue;
 
-  const Defaulttextfield({
+  const DefaultTextfield({
   super.key,
   required this.text,
   required this.icon,
   required this.onChange,
   this.margin = const EdgeInsets.only(top: 50,left: 20,right: 20), 
   this.validator,
-  this.backgroudColor =Colors.white
+  this.backgroudColor =Colors.white,
+  this.initValue
 
   });
 
@@ -34,7 +36,9 @@ class Defaulttextfield extends StatelessWidget {
                 child: TextFormField(
                   onChanged: (text){
                     onChange(text);
-                  },validator: validator ,
+                  },
+                  initialValue: initValue,
+                  validator: validator ,
                   decoration: InputDecoration(
                     label: Text(text),
                     border: InputBorder.none,

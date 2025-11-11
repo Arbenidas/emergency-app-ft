@@ -7,9 +7,9 @@ class ProfileUpdateContent extends StatelessWidget {
 
   User? user;
 
-   ProfileUpdateContent({
+   ProfileUpdateContent(
     this.user
-    });
+    );
 
   @override
   Widget build(BuildContext context) {
@@ -62,32 +62,34 @@ class ProfileUpdateContent extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
-              child: Defaulttextfield(
+              child: DefaultTextfield(
                 backgroudColor: Colors.grey,
                 margin: EdgeInsets.only(left: 50, right: 50, top: 10),
                 text: 'Nombre',
                 icon: Icons.person,
+                initValue: user?.name,
                 onChange: (text) {},
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
-              child: Defaulttextfield(
+              child: DefaultTextfield(
                 margin: EdgeInsets.only(left: 50, right: 50, top: 10),
-
                 text: 'Apellido',
                 backgroudColor: Colors.grey,
                 icon: Icons.person_outline,
+                initValue: user?.lastname,
                 onChange: (text) {},
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
-              child: Defaulttextfield(
+              child: DefaultTextfield(
                 margin: EdgeInsets.only(left: 50, right: 50, top: 10),
                 text: 'Telefono',
                 icon: Icons.phone,
                 backgroudColor: Colors.grey,
+                initValue: user?.phone,
                 onChange: (text) {},
               ),
             ),

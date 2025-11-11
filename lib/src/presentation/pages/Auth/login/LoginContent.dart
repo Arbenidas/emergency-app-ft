@@ -84,7 +84,7 @@ class LoginContent extends StatelessWidget {
                     "Log in..",
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
-                 Defaulttextfield(
+                 DefaultTextfield(
                   text: "Email",
                   icon: Icons.email_outlined, 
                   onChange: (String text) { 
@@ -94,7 +94,7 @@ class LoginContent extends StatelessWidget {
                      return state.email.error;
                    },),
                   SizedBox(height: 20),
-                  Defaulttextfield(
+                  DefaultTextfield(
                   text: "Contraseña", 
                   icon: Icons.lock_outline,
                   onChange: (String text) { 
