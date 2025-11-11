@@ -15,7 +15,7 @@ class ProfileInfoContent extends StatelessWidget {
           children: [
             _HeaderProfile(context),
             Spacer(),
-            _actionProfile("editar Perfil", Icons.edit,(){
+            _actionProfile("Editar Perfil", Icons.edit,(){
               Navigator.pushNamed(context, 'profile/update',arguments: user);
             }),
             _actionProfile("Cerrar sesion", Icons.exit_to_app, (){

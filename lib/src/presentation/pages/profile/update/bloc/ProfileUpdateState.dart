@@ -11,10 +11,10 @@ final GlobalKey<FormState>? formKey;
 
 
 const ProfileUpdateState({
-this.name,
-this.lastname,
-this.phone,
-this.formKey
+this.name = const Blocformitem(error:'Ingresa el nombre'),
+this.lastname = const Blocformitem(error:'Ingresa el apellido'),
+this.phone = const Blocformitem(error:'Ingresa el telefono'),
+this.formKey 
 
 });
 
@@ -37,7 +37,6 @@ GlobalKey<FormState>? formKey
     name,
     lastname,
     phone,
-    formKey
   ];
 
 }
