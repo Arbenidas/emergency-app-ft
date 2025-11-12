@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class DefaultIconBack extends StatelessWidget {
 
-  Color color;
-  EdgeInsetsGeometry? margin;
+  final Color color;
+  final EdgeInsetsGeometry? margin;
   
    DefaultIconBack({
     this.color = Colors.white,

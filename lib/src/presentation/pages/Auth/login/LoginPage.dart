@@ -1,5 +1,4 @@
 import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
-import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
@@ -8,7 +7,6 @@ import 'package:app_emergencia/src/presentation/pages/Auth/login/loginContent.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});

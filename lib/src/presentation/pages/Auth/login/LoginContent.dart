@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginContent extends StatelessWidget {
 
-  LoginState state;
+  final LoginState state;
 
    LoginContent(this.state);
 

@@ -1,6 +1,5 @@
 import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
-import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/RegisterContent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterEvent.dart';
@@ -8,7 +7,6 @@ import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/Registe
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

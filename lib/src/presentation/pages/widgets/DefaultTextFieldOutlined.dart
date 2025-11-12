@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class DefaultTextFieldOutlined extends StatelessWidget {
 
-  String text;
-  Function(String text) onChanged;
-  IconData icon;
-  EdgeInsetsGeometry margin;
-  String? Function(String?)? validator;
+  final String text;
+  final Function(String text) onChanged;
+  final IconData icon;
+  final EdgeInsetsGeometry margin;
+  final String? Function(String?)? validator;
 
   DefaultTextFieldOutlined({
     required this.text,

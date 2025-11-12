@@ -1,16 +1,14 @@
-import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart' hide FormSubmit, PasswordChange;
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterState.dart';
 import 'package:app_emergencia/src/presentation/pages/widgets/DefaultButton.dart';
-import 'package:app_emergencia/src/presentation/pages/widgets/DefaultTextField.dart';
 import 'package:app_emergencia/src/presentation/pages/widgets/DefaultTextFieldOutlined.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 class RegisterContent extends StatelessWidget {
 
-  RegisterState state;
+  final RegisterState state;
 
   RegisterContent(this.state);
 

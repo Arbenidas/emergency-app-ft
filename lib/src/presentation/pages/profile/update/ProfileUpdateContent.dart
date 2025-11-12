@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
-  User? user;
-  ProfileUpdateState? state;
+  final User? user;
+  final ProfileUpdateState? state;
 
   ProfileUpdateContent(this.user, this.state);
 
@@ -128,9 +128,11 @@ class ProfileUpdateContent extends StatelessWidget {
         if (state!.formKey!.currentContext != null) {
           if (state!.formKey!.currentState!.validate()) {
             context.read<ProfileUpdateBloc>().add(FormSubmit());
+            Navigator.pop(context);
           }
-        }else{
-            context.read<ProfileUpdateBloc>().add(FormSubmit());
+        } else {
+          context.read<ProfileUpdateBloc>().add(FormSubmit());
+          Navigator.pop(context);
         }
       },
       child: ListTile(

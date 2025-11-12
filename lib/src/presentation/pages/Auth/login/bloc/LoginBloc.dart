@@ -1,8 +1,5 @@
-import 'package:app_emergencia/src/data/dataSource/remote/service/AuthService.dart';
 import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
-import 'package:app_emergencia/src/domain/useCases/auth/LoginUseCase.dart';
-import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginState.dart';

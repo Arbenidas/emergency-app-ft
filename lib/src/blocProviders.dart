@@ -9,7 +9,6 @@ import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/Registe
 import 'package:app_emergencia/src/presentation/pages/profile/info/bloc/ProfileInfoBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/info/bloc/ProfileInforEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateBloc.dart';
-import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateEvent.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 List<BlocProvider> blocProviders = [
