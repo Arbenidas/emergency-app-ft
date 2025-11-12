@@ -1,15 +1,18 @@
 import 'package:app_emergencia/src/domain/models/user.dart';
+import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateBloc.dart';
+import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateEvent.dart';
+import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateState.dart';
 import 'package:app_emergencia/src/presentation/pages/widgets/DefaultIconBack.dart';
 import 'package:app_emergencia/src/presentation/pages/widgets/DefaultTextField.dart';
+import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileUpdateContent extends StatelessWidget {
-
   User? user;
+  ProfileUpdateState? state;
 
-   ProfileUpdateContent(
-    this.user
-    );
+  ProfileUpdateContent(this.user, this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +23,13 @@ class ProfileUpdateContent extends StatelessWidget {
           children: [
             _HeaderProfile(context),
             Spacer(),
-            _actionProfile("Actualizar usuario", Icons.update),
+            _actionProfile(context, "Actualizar usuario", Icons.update),
             SizedBox(height: 50),
           ],
         ),
         // Ahora esta llamada usa el MÉTODO _cardUser de esta clase
         _cardUser(context),
-        DefaultIconBack(
-          margin: EdgeInsets.only(top:60, left: 30),
-        )
+        DefaultIconBack(margin: EdgeInsets.only(top: 60, left: 30)),
       ],
     );
   }
@@ -68,7 +69,14 @@ class ProfileUpdateContent extends StatelessWidget {
                 text: 'Nombre',
                 icon: Icons.person,
                 initValue: user?.name,
-                onChange: (text) {},
+                onChange: (text) {
+                  context.read<ProfileUpdateBloc>().add(
+                    NameChanged(name: Blocformitem(value: text)),
+                  );
+                },
+                validator: (value) {
+                  return state?.name?.error;
+                },
               ),
             ),
             Container(
@@ -79,7 +87,14 @@ class ProfileUpdateContent extends StatelessWidget {
                 backgroudColor: Colors.grey,
                 icon: Icons.person_outline,
                 initValue: user?.lastname,
-                onChange: (text) {},
+                onChange: (text) {
+                  context.read<ProfileUpdateBloc>().add(
+                    LastNameChanged(lastname: Blocformitem(value: text)),
+                  );
+                },
+                validator: (value) {
+                  return state?.lastname?.error;
+                },
               ),
             ),
             Container(
@@ -90,7 +105,14 @@ class ProfileUpdateContent extends StatelessWidget {
                 icon: Icons.phone,
                 backgroudColor: Colors.grey,
                 initValue: user?.phone,
-                onChange: (text) {},
+                onChange: (text) {
+                  context.read<ProfileUpdateBloc>().add(
+                    Phonechanged(phone: Blocformitem(value: text)),
+                  );
+                },
+                validator: (value) {
+                  return state?.phone?.error;
+                },
               ),
             ),
           ],
@@ -100,26 +122,37 @@ class ProfileUpdateContent extends StatelessWidget {
   }
 
   // MÉTODO MOVIDO DENTRO DE LA CLASE
-  Widget _actionProfile(String option, IconData icon) {
-    return ListTile(
-      title: Text(
-        option,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-      ),
-      leading: Container(
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color.fromARGB(255, 12, 38, 145),
-              Color.fromARGB(255, 34, 156, 249),
-            ],
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+  Widget _actionProfile(BuildContext context, String option, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        if (state!.formKey!.currentContext != null) {
+          if (state!.formKey!.currentState!.validate()) {
+            context.read<ProfileUpdateBloc>().add(FormSubmit());
+          }
+        }else{
+            context.read<ProfileUpdateBloc>().add(FormSubmit());
+        }
+      },
+      child: ListTile(
+        title: Text(
+          option,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
-        child: Icon(icon, color: Colors.white),
+        leading: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [
+                Color.fromARGB(255, 12, 38, 145),
+                Color.fromARGB(255, 34, 156, 249),
+              ],
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: Icon(icon, color: Colors.white),
+        ),
       ),
     );
   }

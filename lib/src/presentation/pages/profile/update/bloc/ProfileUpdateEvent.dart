@@ -2,7 +2,7 @@ import 'package:app_emergencia/src/domain/models/user.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
  abstract class ProfileUpdateEvent{}
 
-class ProfileUpdateInitEvent{
+class ProfileUpdateInitEvent extends ProfileUpdateEvent{
   final User? user;
 
   ProfileUpdateInitEvent({

@@ -3,10 +3,10 @@ class User {
     int? id;
     String name;
     String lastname;
-    String email;
+    String? email;
     String phone;
-    String password;
-    String dui;
+    String? password;
+    String? dui;
     dynamic image;
     List<Role>? roles;
     dynamic notificationToken;
