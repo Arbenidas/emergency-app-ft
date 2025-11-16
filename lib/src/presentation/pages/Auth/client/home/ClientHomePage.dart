@@ -2,6 +2,7 @@ import 'package:app_emergencia/src/main.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/home/bloc/ClientHomeBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/home/bloc/ClientHomeEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/home/bloc/ClientHomeState.dart';
+import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/ClientMapSeekerPage.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/info/ProfileInfoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,10 @@ class ClientHomePage extends StatefulWidget {
 }
 
 class _ClienthomepageState extends State<ClientHomePage> {
-  List<Widget> pageList = <Widget>[ProfileInfoPage()];
+  List<Widget> pageList = <Widget>[
+    ClientMapSeekerPage(),
+    ProfileInfoPage()
+    ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +50,8 @@ class _ClienthomepageState extends State<ClientHomePage> {
                   style: TextStyle(
                     color: Colors.white
                   ),),
-                ),
-                ListTile(
-                  title: Text("Perfil de susuario"),
+                ),ListTile(
+                  title: Text("Mapa de busqueda"),
                   selected: state.pageIndex == 0,
                   onTap: () {
                     context.read<ClientHomeBloc>().add(
@@ -57,8 +60,17 @@ class _ClienthomepageState extends State<ClientHomePage> {
                   },
                 ), 
                 ListTile(
+                  title: Text("Perfil de susuario"),
+                  selected: state.pageIndex == 1,
+                  onTap: () {
+                    context.read<ClientHomeBloc>().add(
+                      ChangeDrawerPage(pageIndex: 0));
+                    Navigator.pop(context);
+                  },
+                ), 
+                ListTile(
                   title: Text("Cerrar sesion"),
-                  selected: state.pageIndex == 0,
+                  selected: state.pageIndex == 2,
                   onTap: () {
                     context.read<ClientHomeBloc>().add(
                       Logout());

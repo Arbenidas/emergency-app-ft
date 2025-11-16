@@ -5,6 +5,7 @@ import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/Profil
 import 'package:app_emergencia/src/presentation/pages/widgets/DefaultIconBack.dart';
 import 'package:app_emergencia/src/presentation/pages/widgets/DefaultTextField.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
+import 'package:app_emergencia/src/presentation/utils/GalleryOrPhotoDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,25 +13,58 @@ class ProfileUpdateContent extends StatelessWidget {
   final User? user;
   final ProfileUpdateState? state;
 
-  ProfileUpdateContent(this.user, this.state);
+  const ProfileUpdateContent(this.user, this.state);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        //primera parte del stack
-        Column(
-          children: [
-            _HeaderProfile(context),
-            Spacer(),
-            _actionProfile(context, "Actualizar usuario", Icons.update),
-            SizedBox(height: 50),
-          ],
+    return Form(
+      key: state?.formKey,
+      child: Stack(
+        children: [
+          //primera parte del stack
+          Column(
+            children: [
+              _HeaderProfile(context),
+              Spacer(),
+              _actionProfile(context, "Actualizar usuario", Icons.update),
+              SizedBox(height: 50),
+            ],
+          ),
+          // Ahora esta llamada usa el MÉTODO _cardUser de esta clase
+          _cardUser(context),
+          DefaultIconBack(margin: EdgeInsets.only(top: 60, left: 30)),
+        ],
+      ),
+    );
+  }
+
+  Widget _imageUser(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        GalleryOrPhotoDialog(
+          context,
+          () => {context.read<ProfileUpdateBloc>().add(PickImage())},
+          () => {context.read<ProfileUpdateBloc>().add(TakePhoto())},
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 20),
+        width: 150,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: ClipOval(
+            child: state?.img != null
+                ? Image.file(state!.img!, fit: BoxFit.cover)
+                : FadeInImage.assetNetwork(
+                    placeholder: "assets/img/user_image.png",
+                    image:
+                        "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png",
+                    fit: BoxFit.cover,
+                    fadeInDuration: Duration(seconds: 1),
+                  ),
+          ),
         ),
-        // Ahora esta llamada usa el MÉTODO _cardUser de esta clase
-        _cardUser(context),
-        DefaultIconBack(margin: EdgeInsets.only(top: 60, left: 30)),
-      ],
+      ),
     );
   }
 
@@ -45,22 +79,7 @@ class ProfileUpdateContent extends StatelessWidget {
         surfaceTintColor: Colors.white,
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              width: 150,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: ClipOval(
-                  child: FadeInImage.assetNetwork(
-                    placeholder: "assets/img/user_image.png",
-                    image:
-                        "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png",
-                    fit: BoxFit.cover,
-                    fadeInDuration: Duration(seconds: 1),
-                  ),
-                ),
-              ),
-            ),
+            _imageUser(context),
             Container(
               margin: EdgeInsets.only(top: 10),
               child: DefaultTextfield(

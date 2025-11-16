@@ -1,10 +1,12 @@
 import 'package:app_emergencia/src/data/api/repository/AuthRepositoryImpl.dart';
+import 'package:app_emergencia/src/data/api/repository/GeolocatorRepositoyImpl.dart';
 import 'package:app_emergencia/src/data/api/repository/UserRepositoryImpl.dart';
 import 'package:app_emergencia/src/data/dataSource/local/SharePref.dart';
 import 'package:app_emergencia/src/data/dataSource/remote/service/AuthService.dart';
 import 'package:app_emergencia/src/data/dataSource/remote/service/UserService.dart';
 import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/repository/AuthRepository.dart';
+import 'package:app_emergencia/src/domain/repository/GeolocatorRepository.dart';
 import 'package:app_emergencia/src/domain/repository/UserRepository.dart';
 import 'package:app_emergencia/src/domain/useCases/Users/UpdateUserUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/Users/UsersUseCases.dart';
@@ -14,6 +16,8 @@ import 'package:app_emergencia/src/domain/useCases/auth/LogOutUseCases.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/RegisterUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/geolocator/FindPositionUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/geolocator/GeolocatorUseCases.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -45,6 +49,8 @@ abstract class Appmodule {
   @injectable
   UserRespository get userRepository => UserRepositoryImpl(userService);
 
+  @injectable
+  GeolocatoRepository get geolocatoRepository => GeolocatorRepositoyImpl();
 
   @injectable
   UserUserCases get userUsecases =>UserUserCases(updateUserUseCase: UpdateUserUseCase(userRepository));
@@ -56,5 +62,8 @@ abstract class Appmodule {
     saveUserSession: SaveUserSessionUseCase(authRepository),
     getUserSession: GetUserSessionUseCase(authRepository),
     logOutUseCases: LogOutUseCases(authrepository: authRepository),
+
   );
+
+  GeoLocatorUseCases get geoLocatorUseCases => GeoLocatorUseCases(findPosition: FindPositionUseCase(geolocatoRepository));
 }

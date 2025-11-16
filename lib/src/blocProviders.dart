@@ -1,7 +1,10 @@
 import 'package:app_emergencia/src/domain/useCases/Users/UsersUseCases.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/geolocator/GeolocatorUseCases.dart';
 import 'package:app_emergencia/src/injection.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/home/bloc/ClientHomeBloc.dart';
+import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerBloc.dart';
+import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/login/bloc/LoginEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/register/bloc/RegisterBloc.dart';
@@ -29,6 +32,8 @@ List<BlocProvider> blocProviders = [
   ),
 
   BlocProvider<ProfileUpdateBloc>(
-    create: (context) => ProfileUpdateBloc(locator<UserUserCases>()),
+    create: (context) => ProfileUpdateBloc(locator<UserUserCases>(),locator<AuthUseCase>()),
   ),
+
+  BlocProvider<ClientMapSeekerBloc>(create: (context) => ClientMapSeekerBloc(locator<GeoLocatorUseCases>())..add(FindPosition()))
 ];

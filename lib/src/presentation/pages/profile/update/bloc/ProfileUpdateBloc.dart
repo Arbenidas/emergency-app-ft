@@ -1,16 +1,24 @@
+import 'dart:io';
+
+import 'package:app_emergencia/src/domain/models/AuthResponse.dart';
 import 'package:app_emergencia/src/domain/useCases/Users/UsersUseCases.dart';
+import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart';
 import 'package:app_emergencia/src/domain/utils/Resource.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/profile/update/bloc/ProfileUpdateState.dart';
 import 'package:app_emergencia/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
   final formKey = GlobalKey<FormState>();
-
+  AuthUseCase authUseCase;
   UserUserCases userCases;
-  ProfileUpdateBloc(this.userCases) : super(ProfileUpdateState()) {
+
+  ProfileUpdateBloc(this.userCases, this.authUseCase)
+    : super(ProfileUpdateState()) {
     on<ProfileUpdateInitEvent>((event, emit) {
       emit(
         state.copyWith(
@@ -59,6 +67,31 @@ class ProfileUpdateBloc extends Bloc<ProfileUpdateEvent, ProfileUpdateState> {
           formKey: formKey,
         ),
       );
+    });
+
+    on<PickImage>((event, emit) async {
+      final ImagePicker picker = ImagePicker();
+
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        state.copyWith(img: File(image.path), formKey: formKey);
+      }
+    });
+    on<TakePhoto>((event, emit) async {
+      final ImagePicker picker = ImagePicker();
+
+      final XFile? image = await picker.pickImage(source: ImageSource.camera);
+      if (image != null) {
+        state.copyWith(img: File(image.path), formKey: formKey);
+      }
+    });
+    on<UpdateUserSession>((event, emit) async {
+      AuthResponse authResponse = await authUseCase.getUserSession.run();
+      authResponse.user.name = event.user!.name;
+      authResponse.user.lastname = event.user!.lastname;
+      authResponse.user.phone = event.user!.phone;
+      authResponse.user.image = event.user?.image;
+      await authUseCase.saveUserSession.run(authResponse);
     });
 
     on<FormSubmit>((event, emit) async {

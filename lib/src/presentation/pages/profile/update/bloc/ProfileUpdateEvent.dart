@@ -28,4 +28,14 @@ class Phonechanged extends ProfileUpdateEvent{
   Phonechanged({required this.phone});
 }
 
+class UpdateUserSession extends ProfileUpdateEvent{
+  final User? user;
+
+  UpdateUserSession({required this.user});
+}
+
+class PickImage extends ProfileUpdateEvent{}
+
+class TakePhoto extends ProfileUpdateEvent {}
+
 class FormSubmit extends ProfileUpdateEvent{ }
