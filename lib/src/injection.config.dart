@@ -18,10 +18,14 @@ import 'package:app_emergencia/src/data/dataSource/remote/service/UserService.da
 import 'package:app_emergencia/src/di/AppModule.dart' as _i273;
 import 'package:app_emergencia/src/domain/repository/AuthRepository.dart'
     as _i252;
+import 'package:app_emergencia/src/domain/repository/GeolocatorRepository.dart'
+    as _i359;
 import 'package:app_emergencia/src/domain/repository/UserRepository.dart'
     as _i251;
 import 'package:app_emergencia/src/domain/useCases/auth/AuthUseCase.dart'
     as _i1063;
+import 'package:app_emergencia/src/domain/useCases/geolocator/GeolocatorUseCases.dart'
+    as _i191;
 import 'package:app_emergencia/src/domain/useCases/Users/UsersUseCases.dart'
     as _i568;
 import 'package:get_it/get_it.dart' as _i174;
@@ -41,8 +45,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i252.Authrepository>(() => appmodule.authRepository);
     gh.factory<_i1057.UserService>(() => appmodule.userService);
     gh.factory<_i251.UserRespository>(() => appmodule.userRepository);
+    gh.factory<_i359.GeolocatoRepository>(() => appmodule.geolocatoRepository);
     gh.factory<_i568.UserUserCases>(() => appmodule.userUsecases);
     gh.factory<_i1063.AuthUseCase>(() => appmodule.authUseCase);
+    gh.factory<_i191.GeoLocatorUseCases>(() => appmodule.geoLocatorUseCases);
     return this;
   }
 }

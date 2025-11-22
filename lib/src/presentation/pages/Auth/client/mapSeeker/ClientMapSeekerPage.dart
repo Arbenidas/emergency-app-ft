@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerBloc.dart';
+import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,16 @@ class _ClientmapseekerpageState extends State<ClientMapSeekerPage> {
   );
 
   @override
+  void initState() {
+
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timestamp){
+  context.read()<ClientMapSeekerBloc>().add(FindPosition());
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ClientMapSeekerBloc, ClientMapSeekerState>(
@@ -37,8 +48,9 @@ class _ClientmapseekerpageState extends State<ClientMapSeekerPage> {
           return GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
+            markers: Set<Marker>.of(state.markers.values),
             onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
+              state.controller?.complete(controller);
             },
           );
         },

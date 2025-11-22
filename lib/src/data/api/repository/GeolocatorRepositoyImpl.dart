@@ -1,6 +1,7 @@
 import 'package:app_emergencia/src/domain/repository/GeolocatorRepository.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geolocator_platform_interface/src/models/position.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GeolocatorRepositoyImpl extends GeolocatoRepository {
   @override
@@ -40,5 +41,24 @@ class GeolocatorRepositoyImpl extends GeolocatoRepository {
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
 }
+
+  @override
+  Future<BitmapDescriptor> createMarkerFromAsset(String path) async {
+  ImageConfiguration configuration = ImageConfiguration();
+  BitmapDescriptor descriptor = await BitmapDescriptor.asset(configuration, path);
+  return descriptor;
+  }
+
+  @override
+  Marker getMarker(String markerId, double lat, double lng, String tittle, String content, BitmapDescriptor imageMarker) {
+    MarkerId id = MarkerId(markerId);
+        Marker marker = Marker(
+            markerId: id,
+          icon: imageMarker ,
+          position: LatLng(lat, lng),
+            infoWindow:  InfoWindow(title: tittle, snippet: content)
+        );
+        return marker;
+  }
 
   }

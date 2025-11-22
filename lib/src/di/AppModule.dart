@@ -16,8 +16,10 @@ import 'package:app_emergencia/src/domain/useCases/auth/LogOutUseCases.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/LoginUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/RegisterUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/auth/SaveUserSessionUseCase.dart';
+import 'package:app_emergencia/src/domain/useCases/geolocator/CreateMarkerUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/geolocator/FindPositionUseCase.dart';
 import 'package:app_emergencia/src/domain/useCases/geolocator/GeolocatorUseCases.dart';
+import 'package:app_emergencia/src/domain/useCases/geolocator/GetMarkerUseCase.dart';
 import 'package:injectable/injectable.dart';
 
 @module
@@ -64,6 +66,10 @@ abstract class Appmodule {
     logOutUseCases: LogOutUseCases(authrepository: authRepository),
 
   );
-
-  GeoLocatorUseCases get geoLocatorUseCases => GeoLocatorUseCases(findPosition: FindPositionUseCase(geolocatoRepository));
+  @injectable
+  GeoLocatorUseCases get geoLocatorUseCases => GeoLocatorUseCases(
+    findPosition: FindPositionUseCase(geolocatoRepository),
+     getMarker: GetMakerUseCase(geolocatoRepository),
+     createMarker: CreateMakerUseCases(geolocatoRepository)
+    );
 }
