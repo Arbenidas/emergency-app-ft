@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:app_emergencia/src/data/api/ApiConfig.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerBloc.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerEvent.dart';
 import 'package:app_emergencia/src/presentation/pages/Auth/client/mapSeeker/bloc/ClientMapSeekerState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 
 class ClientMapSeekerPage extends StatefulWidget {
   const ClientMapSeekerPage({super.key});
@@ -23,48 +26,100 @@ class _ClientmapseekerpageState extends State<ClientMapSeekerPage> {
     zoom: 14.4746,
   );
 
-  static const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(37.43296265331129, -122.08832357078792),
-    tilt: 59.440717697143555,
-    zoom: 19.151926040649414,
-  );
+  TextEditingController controller = TextEditingController();
+
 
   @override
   void initState() {
-
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((timestamp){
-  context.read()<ClientMapSeekerBloc>().add(FindPosition());
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+      // Forma Correcta
+      context.read<ClientMapSeekerBloc>().add(FindPosition());
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: BlocBuilder<ClientMapSeekerBloc, ClientMapSeekerState>(
         builder: (context, state) {
-          return GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
-            markers: Set<Marker>.of(state.markers.values),
-            onMapCreated: (GoogleMapController controller) {
-              state.controller?.complete(controller);
-            },
+          return Stack(
+            children: [
+              GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: _kGooglePlex,
+                markers: Set<Marker>.of(state.markers.values),
+                onMapCreated: (GoogleMapController controller) {
+                  state.controller?.complete(controller);
+                },
+              ),
+              placesAutoCompleteTextField()
+            ],
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
+
+    ); 
+  }
+  Widget placesAutoCompleteTextField() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: GooglePlaceAutoCompleteTextField(
+        textEditingController: controller,
+        googleAPIKey:"AIzaSyDvSTJjtrIU41T21ehFlZD55JspRetJFzU",
+        inputDecoration: InputDecoration(
+          hintText: "Search your location",
+          hintStyle: TextStyle(
+            color: Colors.deepOrangeAccent,
+
+
+
+          ),
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+        ),
+        debounceTime: 400,
+        countries: ["sv"],
+        isLatLngRequired: true,
+        getPlaceDetailWithLatLng: (Prediction prediction) {
+          print("placeDetails" + prediction.lat.toString());
+        },
+
+        itemClick: (Prediction prediction) {
+          controller.text = prediction.description ?? "";
+          controller.selection = TextSelection.fromPosition(
+              TextPosition(offset: prediction.description?.length ?? 0));
+        },
+        seperatedBuilder: Divider(),
+        containerHorizontalPadding: 10,
+
+        // Optional: specify keyboard type (defaults to TextInputType.streetAddress)
+        // keyboardType: TextInputType.text,
+
+
+        // OPTIONAL// If you want to customize list view item builder
+        itemBuilder: (context, index, Prediction prediction) {
+          return Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Icon(Icons.location_on),
+                SizedBox(
+                  width: 7,
+                ),
+                Expanded(child: Text("${prediction.description ?? ""}"))
+              ],
+            ),
+          );
+        },
+
+        isCrossBtnShown: true,
+
+        // default 600 ms ,
       ),
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
 }
